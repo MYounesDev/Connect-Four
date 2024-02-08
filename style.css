@@ -1,0 +1,24 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}
+h1{
+    width: 95%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 10%;
+    left: 50%;
+    font-size: 9.5vmin;
+    text-align: center;
+}
+#btn{
+    margin: 20px;
+    padding: 20px;
+    border: none;
+    background-color: #fe0067;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+}
