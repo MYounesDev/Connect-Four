@@ -1,2 +1,2 @@
 # Connect-Four
-Two-Player Connect Four Game
+Two-Player Connect Four Game.
