@@ -3,7 +3,7 @@ Two-Player Connect Four Game
 
 ..
 
-ccccddddrrrr
+ccccddddrrrraaaa
 
 
 aaa
