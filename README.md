@@ -3,4 +3,4 @@ Two-Player Connect Four Game
 
 
 rrrrrrrwwwww
-jhhjgggwwwww
+jhhjgggwwwwwrrrr
