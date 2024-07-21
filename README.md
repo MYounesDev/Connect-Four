@@ -2,5 +2,5 @@
 Two-Player Connect Four Game
 
 
-rrrrrrrwwwwwtrrrrrrr
-jhhjgggwwwwwrrrrrrrr
+rrrrrrrwwwwwtrrrrrrrrrr
+jhhjgggwwwwwrrrrrrrrrrr
