@@ -2,7 +2,7 @@
 Two-Player Connect Four Game
 
 
-I can heal the nurs
+I can heal the nurshchchd
 gdhfhsh hsh hdu ududhchhd
 dlelfldllvocufhdhchc
 didjsjjvc
