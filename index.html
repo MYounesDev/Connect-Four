@@ -1,116 +1,142 @@
 ﻿<!DOCTYPE html>
-
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
-body {
-  background-image: url('q.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-</style>
-
-
-<title>Two-player Connect Four</title>
-<meta name="description" content="Play two-player Connect Four online. To win, be the first to form a horizontal, vertical, or diagonal line with four of your discs.">
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="./css.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./main.css">
-<style id="a11y-styles">.board button:focus{border:5px solid #999}</style>
-</head>
-<body>
-
-
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Two-player Connect Four</title>
+    <meta name="description" content="Play two-player Connect Four online. To win, be the first to form a horizontal, vertical, or diagonal line with four of your discs.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Fonts and Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./css.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./main.css">
     <link rel="stylesheet" href="style.css">
+    <style id="a11y-styles">.board button:focus{border:5px solid #999}</style>
 </head>
 <body>
+    <div id="particles-js"></div>
     
-    <button id="btn">Go Fullscreen</button>
+    <!-- Fun Floating Elements for Kids -->
+    <div class="floating-elements" id="floating-elements"></div>
 
+    <header>
+        <button id="btn" class="control-btn">Go Fullscreen</button>
+        <div id="sound-toggle" class="sound-toggle">
+            <i id="sound-icon" class="fas fa-volume-up"></i>
+        </div>
+        <button id="reset-game" class="control-btn reset-btn">Reset Game <span class="reset-emoji">🔄</span></button>
+    </header>
     
+    <section>
+        <div class="center">
+            <h1 class="title">Connect Four <span class="game-emoji">🎮</span></h1>
+            
+            <div id="top-text" class="top-text">
+                <h2 class="primary">
+                    <span id="prefix">Current player is: </span>
+                    <span id="current-player" contenteditable="true">Player 1</span>
+                </h2>
+                <h3 class="secondary">
+                    <span>Next up is: </span>
+                    <span id="other-player" contenteditable="true">Player 2</span>
+                </h3>
+
+                <div id="play-again" class="play-again">
+                    <a href="#" class="play-again-btn" id="play-again-btn">Play Again <span class="restart-emoji">🔄</span></a>
+                </div>
+            </div>
+            
+            <table id="board" class="board">
+                <tbody>
+                    <tr>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="0" type="button">1</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="1" type="button">2</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="2" type="button">3</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="3" type="button">4</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="4" type="button">5</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="5" type="button">6</button></td>
+                        <td><button style="font-size:2vw" class="favorite styled column-btn" data-column="6" type="button">7</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                        <td><button type="button"></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div id="winner-message" class="winner-message">
+                <div class="message-content"></div>
+                <div class="confetti-container"></div>
+                <div class="trophy-animation"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="game-controls">
+        </div>
+    </footer>
+
+    <!-- Audio elements -->
+    <audio id="drop-sound" src="https://freesound.org/data/previews/240/240776_4107740-lq.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="https://freesound.org/data/previews/270/270402_5123851-lq.mp3" preload="auto"></audio>
+    <audio id="draw-sound" src="https://freesound.org/data/previews/345/345687_6142149-lq.mp3" preload="auto"></audio>
+    <audio id="hover-sound" src="https://freesound.org/data/previews/648/648334_13774117-lq.mp3" preload="auto"></audio>
+    <audio id="click-sound" src="https://freesound.org/data/previews/522/522407_1475183-lq.mp3" preload="auto"></audio>
+    <audio id="celebration-sound" src="https://freesound.org/data/previews/412/412068_7638426-lq.mp3" preload="auto"></audio>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
-    <section class="wrapper">
-<div class="center">
-  <h1 class="title">Connect Four</h1>
-<div id="top-text" class="top-text">
-<h2 class="primary">
-<span id="prefix">Current player is: </span>
-<span id="current-player" contenteditable="true">Player 1</span>
-</h2>
-<h3 class="secondary">
-<span>Next up is: </span>
-<span id="other-player" contenteditable="true">Player 2</span>
-</h3>
-
-<div id="play-again" class="play-again">
-<a href="index.html" class="play-again-btn" id="play-again-btn">Play Again</a>
-</div>
-</div>
-<table id="board" class="board">
-  <tbody>
-<tr>
-  <td><button style="font-size:2vw" class="favorite styled" type="button">1</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">2</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">3</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">4</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">5</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">6</button></td>
-<td><button style="font-size:2vw" class="favorite styled" type="button">7</button></td>
-</tr>
-<tr>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-</tr>
-<tr>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-</tr>
-<tr>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-</tr>
-<tr>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-</tr>
-<tr>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-<td><button type="button"></button></td>
-</tr>
-</tbody>
-</table>
-
-</div></section>
-<script src="./vars.js"></script>
-<script src="./functions.js"></script>
-<script src="./accessibility.js"></script>
-<script src="script.js"></script>
-
-
-</body></html>
+    <!-- Game Scripts -->
+    <script src="./vars.js"></script>
+    <script src="./functions.js"></script>
+    <script src="./accessibility.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

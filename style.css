@@ -2,22 +2,833 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Poppins",sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
-h1{
+
+body {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    min-height: 100vh;
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Particles Background */
+#particles-js {
     position: absolute;
-    transform: translate(-50%,-50%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+}
+
+/* Controls */
+.control-btn {
+    margin: 10px;
+    padding: 12px 20px;
+    border: none;
+    background: linear-gradient(45deg, #e84393, #0984e3);
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle, .sound-toggle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover, .sound-toggle:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.theme-toggle i, .sound-toggle i {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+h1 {
+    position: absolute;
+    transform: translate(-50%, -50%);
     top: 10%;
     left: 50%;
     font-size: 9.5vmin;
     text-align: center;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
 }
-#btn{
-    margin: 20px;
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+                     0 0 30px #e84393,
+                     0 0 40px #0984e3;
+    }
+}
+
+/* Game Stats */
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.player, .draws {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.player-1 .stat-label {
+    color: #fd79a8;
+}
+
+.player-2 .stat-label {
+    color: #74b9ff;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.board button {
+    transition: all 0.3s ease !important;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2) !important;
+    border: 3px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.board button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important;
+}
+
+.play-again-btn {
+    background: linear-gradient(45deg, #e84393, #0984e3) !important;
+    border-radius: 30px !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+.play-again-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Winner Message */
+.winner-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, rgba(45,45,45,0.8) 100%);
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    z-index: 100;
+    opacity: 0;
+    transition: all 0.5s ease;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.winner-message.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.message-content {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f0f, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 60px #0ff, 0 0 70px #0ff;
+    animation: text-flicker 2s infinite alternate;
+}
+
+@keyframes text-flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+    }
+    20%, 24%, 55% {        
+        text-shadow: none;
+    }
+}
+
+/* Confetti Animation */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #fd79a8;
+    opacity: 0.8;
+    animation: fall 3s linear forwards, rotate 2s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sway {
+    0% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(-5px);
+    }
+}
+
+/* Button hover effects */
+.control-btn, .play-again-btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.control-btn:after, .play-again-btn:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+}
+
+.control-btn:hover:after, .play-again-btn:hover:after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Winner message animation */
+@keyframes pop {
+    0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.winner-message.show {
+    animation: pop 0.5s ease forwards;
+}
+
+/* Game board piece drop animation */
+@keyframes dropPiece {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    70% {
+        transform: translateY(15px);
+    }
+    85% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.board button.red, .board button.black {
+    animation: dropPiece 0.5s ease;
+}
+
+/* Pulse effect for current player indicator */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(232, 67, 147, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(232, 67, 147, 0);
+    }
+}
+
+.primary [contenteditable=true].red::after,
+.primary [contenteditable=true].black::after {
+    animation: pulse 2s infinite;
+}
+
+/* Hover effect for player names */
+.primary [contenteditable=true]:hover,
+.secondary [contenteditable=true]:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 30px;
     padding: 20px;
-    border: none;
-    background-color: #fe0067;
-    color: #ffffff;
-    cursor: pointer;
-    border-radius: 5px;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background: linear-gradient(135deg, #000000, #1a1a2e, #16213e);
+}
+
+/* Light Theme */
+body.light-theme {
+    background: linear-gradient(135deg, #c8d6e5, #8395a7, #dfe6e9);
+    color: #222;
+}
+
+body.light-theme h1 {
+    color: #222;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .top-text {
+    color: #222;
+}
+
+body.light-theme .primary {
+    color: #222;
+    text-shadow: none;
+}
+
+body.light-theme .secondary {
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 7vmin;
+    }
+    
+    .game-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Center the title properly */
+h1.title {
+    position: relative;
+    transform: none;
+    top: auto;
+    left: auto;
+    margin: 30px auto;
+    text-align: center;
+    width: 100%;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+    background-size: 600% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-text 6s linear infinite;
+}
+
+@keyframes rainbow-text {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.game-emoji {
+    font-size: 0.7em;
+    position: relative;
+    top: -5px;
+    animation: bounce 0.8s infinite alternate;
+    -webkit-text-fill-color: #000000;
+}
+
+/* Winning piece styles */
+.winning-piece {
+    box-shadow: 0 0 15px 5px #ffdd59, 0 0 30px 10px rgba(255, 221, 89, 0.5) !important;
+    z-index: 10;
+    position: relative;
+    transform: scale(1.1) !important;
+}
+
+/* Column highlight */
+.column-highlight {
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+/* Additional animations for interactive elements */
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Stats counters animation */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-value {
+    animation: countUp 0.5s ease-out;
+}
+
+/* Add glow effect to board */
+.board {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.1),
+                0 0 20px rgba(232, 67, 147, 0.3),
+                0 0 40px rgba(9, 132, 227, 0.2) !important;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 460px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #e84393, #0984e3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #fd79a8, #74b9ff);
+}
+
+/* Add fun animations for game pieces */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-20px);}
+  60% {transform: translateY(-10px);}
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+
+@keyframes rainbow {
+  0% {box-shadow: 0 0 10px 3px red;}
+  14% {box-shadow: 0 0 10px 3px orange;}
+  28% {box-shadow: 0 0 10px 3px yellow;}
+  42% {box-shadow: 0 0 10px 3px green;}
+  56% {box-shadow: 0 0 10px 3px blue;}
+  70% {box-shadow: 0 0 10px 3px indigo;}
+  84% {box-shadow: 0 0 10px 3px violet;}
+  100% {box-shadow: 0 0 10px 3px red;}
+}
+
+@keyframes dropIn {
+  0% {transform: translateY(-500px);}
+  70% {transform: translateY(20px);}
+  85% {transform: translateY(-10px);}
+  100% {transform: translateY(0);}
+}
+
+.player1 {
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+  animation: pulse 2s infinite;
+}
+
+.player2 {
+  background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+  animation: pulse 2s infinite;
+}
+
+.winner {
+  animation: rainbow 2s infinite, bounce 1s infinite;
+}
+
+.drop-animation {
+  animation: dropIn 0.7s ease-in;
+}
+
+/* Fun borders for the board */
+.board {
+  border: 8px solid #ffc857;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+/* Fun styling for column buttons */
+.column-btn {
+  background: linear-gradient(to bottom, #ffd86f, #ffc107);
+  border-radius: 10px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: bold;
+  color: #000000;
+  text-shadow: 0 0 3px white, 0 0 5px white;
+  transition: all 0.2s;
+  font-size: 2.5vw !important;
+  -webkit-text-stroke: 1px white;
+}
+
+.column-btn:hover {
+  transform: scale(1.1);
+  background: linear-gradient(to bottom, #ffeb3b, #ffc107);
+}
+
+/* Fun animated game pieces */
+.board button.player1 {
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+}
+
+.board button.player2 {
+  background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+}
+
+.board button.winner {
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px 5px #ffc107, 0 0 30px 10px #ff9800;
+  }
+}
+
+.title::before, .title::after {
+  position: absolute;
+  font-size: 0.5em;
+}
+
+.title::before {
+  content: "🎲";
+  left: -50px;
+  top: 10px;
+  animation: spin 3s linear infinite;
+}
+
+.title::after {
+  content: "🎮";
+  right: -50px;
+  top: -10px;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* Fun background elements for kids */
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.floating-element {
+  position: absolute;
+  opacity: 0.6;
+  animation: float 15s infinite linear;
+}
+
+.star {
+  color: yellow;
+  font-size: 24px;
+}
+
+.bubble {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 30%, white, rgba(255, 255, 255, 0.3) 40%, rgba(42, 166, 224, 0.6));
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.game-piece {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.red-piece {
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #ee5253);
+}
+
+.blue-piece {
+  background: radial-gradient(circle at 30% 30%, #70a1ff, #1e90ff);
+}
+
+.toy {
+  font-size: 28px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+  }
+}
+
+/* Position the reset button in the top right */
+.reset-btn {
+  margin-left: auto;
+  background: linear-gradient(45deg, #ff3838, #ff9234);
+  animation: pulse-light 2s infinite;
+}
+
+@keyframes pulse-light {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 56, 56, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 56, 56, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 56, 56, 0);
+  }
+}
+
+/* Enhanced winner animations */
+.trophy-animation {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 60px;
+  opacity: 0;
+  animation: trophy-drop 2s forwards;
+}
+
+@keyframes trophy-drop {
+  0% {
+    transform: translateX(-50%) translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-50%) translateY(20px) scale(1.2);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-50%) translateY(-10px) scale(1.1);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Star burst animation for winner */
+@keyframes starburst {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.star-burst {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23FFD700" d="M50 0 L63 38 L100 38 L69 59 L82 100 L50 75 L18 100 L31 59 L0 38 L37 38 Z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  opacity: 0;
+  animation: starburst 1.5s ease-out forwards;
+}
+
+/* Enhanced confetti shapes */
+.confetti.circle {
+  border-radius: 50%;
+}
+
+.confetti.square {
+  border-radius: 0;
+}
+
+.confetti.triangle {
+  width: 0;
+  height: 0;
+  background-color: transparent;
+}
+
+.confetti.heart {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Explosion effect for winning pieces */
+@keyframes explosion {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0px rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+    box-shadow: 0 0 0 40px rgba(255, 215, 0, 0);
+  }
+}
+
+.board button.winning {
+  animation: explosion 1s ease-out infinite;
+  z-index: 10;
+}
+
+/* Enhanced winner message with rotating border */
+@keyframes rotate-border {
+  0% {
+    border-color: #ff0000;
+  }
+  17% {
+    border-color: #ffa500;
+  }
+  33% {
+    border-color: #ffff00;
+  }
+  50% {
+    border-color: #00ff00;
+  }
+  67% {
+    border-color: #0000ff;
+  }
+  83% {
+    border-color: #4b0082;
+  }
+  100% {
+    border-color: #ee82ee;
+  }
+}
+
+.winner-message.show {
+  border: 5px solid #ff0000;
+  animation: pop 0.5s ease forwards, rotate-border 2s linear infinite;
 }
